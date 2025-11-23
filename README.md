@@ -33,8 +33,11 @@ price — home sale price
 area — square footage
 
 bedrooms, bathrooms, stories, parking
+
 prefarea — preferred area (yes/no)
+
 furnishingstatus — furnished / semi-furnished / unfurnished
+
 🛠 Steps Performed
 
 1. Load & Inspect Data
@@ -47,7 +50,7 @@ df.describe() for summary statistics
 df.isna().sum() to reveal missing values
 
 2.  Clean the Dataset
-   
+
 Removed missing values with df.dropna()
 
 Ensured all relevant columns were numeric
