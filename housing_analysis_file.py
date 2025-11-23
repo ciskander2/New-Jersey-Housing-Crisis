@@ -1,40 +1,67 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-# Read the csv
+# 1. Read the csv
 df = pd.read_csv('Housing.csv')
-# Basic Information:
-print("Shape (rows, columns): ", df.shape)
+# 2. Basic Information:
+print(f"Shape (rows, columns) {df.shape}")
 print("\nColumn info:")
 print(df.info())
 print("\nMissing values per column:")
 print(df.isna().sum())
 print("\nFirst 5 Rows:")
 print(df.head())
-# Data Cleaning for the File:
+# 3. Data Cleaning for the File:
 df = df.dropna()
-# Filtering the Data for what we need:
-three_BR_Homes = df[df["bedrooms"] == 3] #
-ten_million_plus = three_BR_Homes[three_BR_Homes['price'] > 10000000]
-median_home = df["price"].median() # Finding median home
+# 4. Filtering the Data for what we need:
+three_BR_homes_and_above_10M = df[(df["bedrooms"] == 3) & (df["price"] > 10000000)]
+three_BR_homes_and_furnished_and_above_10M = df[(df["bedrooms"] == 3) & (df["furnishingstatus"] == "furnished") & (df["price"] > 10000000)]
 df["Price per Square Foot"] = df["price"] / df["area"]
 price_per_square_foot = df["Price per Square Foot"]
-three_BR_homes_and_furnished_and_above_1M = df[(df["bedrooms"] == 3) & (df["furnishingstatus"] == "furnished") & (df["price"] > 10000000)]
-# Printing our answers and revealing insights from the data:
-print(f"Number of ten million dollar 3BR homes: {ten_million_plus.shape[0]}")
-print(f"Price per square foot: {price_per_square_foot}")
-print(f"Median home price: {median_home}")
-print(f"Number of Three Bedroom Homes, Furnished,and above 1M Dollars: {three_BR_homes_and_furnished_and_above_1M.shape[0]}")
+# 5. Statistics for the homes
+standard_deviation_between_homes = df["price"].std()
+median_home = df["price"].median()
+average_home = df["price"].mean()
+#6. Group by for statistics
+average_price_per_bedroom = df.groupby("bedrooms")["price"].mean()
+median_price_per_bedroom = df.groupby("bedrooms")["price"].median()
+median_price_per_furnishing_status = df.groupby("furnishingstatus")["price"].median()
+average_price_per_square_foot_by_preferred_area = df.groupby("prefarea")["price"].mean()
+# 7. Printing our answers and revealing insights from the data:
+print(f"Number of ten million dollar 3BR homes: {three_BR_homes_and_above_10M.shape[0]}")
+print(f"Number of Three Bedroom Homes, Furnished, and above 10M Dollars: {three_BR_homes_and_furnished_and_above_10M.shape[0]}")
+print("\nPrice per square foot:")
+print(price_per_square_foot.head(10).round(2).to_string(index=False))
+print(f"Median Home Price: ${median_home:,.2f}")
+print(f"Average Home Price: ${average_home:,.2f}")
+print(f"Standard Deviation between home price: ${standard_deviation_between_homes:,.2f}")
+print("\nAverage price per bedroom:")
+print(average_price_per_bedroom.round(2).to_string())
+print("\nMedian price per bedroom:")
+print(median_price_per_bedroom.round(2).to_string())
+print("\nMedian price per furnishing status:")
+print(median_price_per_furnishing_status.round(2).to_string())
+print("\nAverage price per square foot by the preferred area:")
+print(average_price_per_square_foot_by_preferred_area.round(2).to_string())
 
 # New header:
-print(ten_million_plus.head())
+print("\nTen Million Dollar Plus Home and 3 Bedrooms:")
+print(three_BR_homes_and_above_10M.head())
+
 # Saving the file:
 df.to_csv('cleaned_Housing.csv', index=False)
+
 ## Plotting the results
 plt.figure()
-df["Price per Square Foot"].hist(bins=6)
+df["Price per Square Foot"].hist(bins=50)
 plt.title("Distribution of Price per Square Foot for Building: ")
 plt.ylabel("Price per square foot")
 plt.xlabel("Count")
+plt.tight_layout()
+plt.show()
+average_price_per_bedroom.plot(kind="bar", figsize=(8,5), color="skyblue")
+plt.title("Average Home Price by Number of Bedrooms")
+plt.xlabel("Bedrooms")
+plt.ylabel("Average Price ($)")
 plt.tight_layout()
 plt.show()
 
