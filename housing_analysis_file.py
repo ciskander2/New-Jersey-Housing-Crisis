@@ -15,6 +15,7 @@ df = df.dropna()
 # 4. Filtering the Data for what we need:
 three_BR_homes_and_above_10M = df[(df["bedrooms"] == 3) & (df["price"] > 10000000)]
 three_BR_homes_and_furnished_and_above_10M = df[(df["bedrooms"] == 3) & (df["furnishingstatus"] == "furnished") & (df["price"] > 10000000)]
+homes_above_3000_sqft = df["area"] > 3000
 df["Price per Square Foot"] = df["price"] / df["area"]
 price_per_square_foot = df["Price per Square Foot"]
 # 5. Statistics for the homes
@@ -27,9 +28,10 @@ median_price_per_bedroom = df.groupby("bedrooms")["price"].median()
 median_price_per_furnishing_status = df.groupby("furnishingstatus")["price"].median()
 average_price_per_square_foot_by_preferred_area = df.groupby("prefarea")["price"].mean()
 # 7. Printing our answers and revealing insights from the data:
-print(f"Number of ten million dollar 3BR homes: {three_BR_homes_and_above_10M.shape[0]}")
-print(f"Number of Three Bedroom Homes, Furnished, and above 10M Dollars: {three_BR_homes_and_furnished_and_above_10M.shape[0]}")
-print("\nPrice per square foot:")
+print(f"\nNumber of ten million dollar 3BR homes: {three_BR_homes_and_above_10M.shape[0]}")
+print(f"\nNumber of Three Bedroom Homes, Furnished, and above 10M Dollars: {three_BR_homes_and_furnished_and_above_10M.shape[0]}")
+print(f"\nNumber of homes above 3000 Square Feet: {homes_above_3000_sqft.shape[0]}")
+print("\nPrice per square foot (first 10 homes):")
 print(price_per_square_foot.head(10).round(2).to_string(index=False))
 print(f"Median Home Price: ${median_home:,.2f}")
 print(f"Average Home Price: ${average_home:,.2f}")
