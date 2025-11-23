@@ -26,6 +26,7 @@ average_home = df["price"].mean()
 average_price_per_bedroom = df.groupby("bedrooms")["price"].mean()
 median_price_per_bedroom = df.groupby("bedrooms")["price"].median()
 median_price_per_furnishing_status = df.groupby("furnishingstatus")["price"].median()
+main_road_average = df.groupby("mainroad")["price"].mean()
 average_price_per_square_foot_by_preferred_area = df.groupby("prefarea")["price"].mean()
 # 7. Printing our answers and revealing insights from the data:
 print(f"\nNumber of ten million dollar 3BR homes: {three_BR_homes_and_above_10M.shape[0]}")
@@ -44,6 +45,8 @@ print("\nMedian price per furnishing status:")
 print(median_price_per_furnishing_status.round(2).to_string())
 print("\nAverage price per square foot by the preferred area:")
 print(average_price_per_square_foot_by_preferred_area.round(2).to_string())
+print("\nHomes on main roads vs non main roads:")
+print(main_road_average.round(2).to_string())
 
 # New header:
 print("\nTen Million Dollar Plus Home and 3 Bedrooms:")
