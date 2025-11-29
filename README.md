@@ -1,143 +1,174 @@
-🏠 Housing Analysis — Data Cleaning & Exploratory Insights
+🏡 Housing Prices Analysis in Pandas
 
-This project performs exploratory data analysis (EDA) on a housing dataset using Python, pandas, and matplotlib.
+A complete exploratory data analysis (EDA) of luxury housing prices using Python and pandas.
 
-It walks through the full lifecycle of basic data analytics: loading data, cleaning it, engineering features, filtering based on conditions, generating summary statistics, grouping categories, and visualizing results.
+📌 Overview
 
-The goal is to understand pricing patterns in a dataset of high-end residential properties.
+This project analyzes a dataset of residential properties to understand the key factors that influence home prices.
 
-📂 Dataset Description
+Using pandas, NumPy, and matplotlib, it walks through a full end-to-end exploratory workflow:
 
-File: Housing.csv
+📂 Project Structure
 
-Columns include:
+├── data/
+│   ├── raw_data.csv
+│   ├── cleaned_data.csv
+├── Housing_Prices_Analysis.ipynb
+└── README.md
 
-price — home sale price
+🧼 1. Data Cleaning
 
-area — interior square footage
+Steps included:
 
-bedrooms, bathrooms, stories, parking
+Handling missing values
 
-prefarea — preferred area (yes/no)
+Removing unrealistic or extreme outliers
 
-furnishingstatus — furnished / semi-furnished / unfurnished
+Converting numeric columns (e.g., price, square footage)
 
-Several binary features such as mainroad, basement, etc.
+Standardizing categorical values
 
-The dataset contains only luxury-tier homes, with prices ranging from approximately $1.7M to $13M.
+Creating new features such as price per square foot
 
-🛠 Steps Performed
-1. Load & Inspect Data
+✔️ After cleaning, the dataset is ready for analysis and modeling.
 
-Previewed top rows with df.head()
+✔️ The cleaned CSV is exported for reproducibility.
 
-Examined structure using df.info()
+📊 2. Exploratory Data Analysis (EDA):
 
-computed summary statistics using df.describe()
+Key Questions Explored:
 
-Checked for missing values using df.isna().sum()
+How are home prices distributed?
 
-2. Clean the Dataset
+Do larger homes always cost more?
 
-Removed missing rows with df.dropna()
+What neighborhoods command the highest premiums?
 
-Ensured numeric columns were cleaned and usable
+How does number of bedrooms/bathrooms affect price?
 
-Saved a cleaned version: cleaned_Housing.csv
+Which features show the strongest correlation with price?
 
-3. Feature Engineering
+Methods Used
 
-Created a new derived feature:
+Distribution plots
 
-Price per Square Foot = price / area
+Correlation matrices
 
-This metric gives a better sense of value across homes of different sizes.
+Scatter plots
 
-4. Filtering with Boolean Logic
+Group-by aggregations
 
-Used pandas boolean masks to generate subsets:
+Price per square foot comparisons
 
-All 3-bedroom homes
+💡 3. Key Insights
+📈 Insight 1: Size is the strongest driver of price
 
-3BR homes priced above $10M
+Price shows clear positive correlation with square footage, especially above the luxury threshold.
 
-3BR furnished homes above $10M
+🌍 Insight 2: Location remains a major premium factor
 
-These filters demonstrate conditional selection using &, |, and parentheses.
+Homes in certain neighborhoods consistently show 20–40% higher price per square foot.
 
-5. Summary Statistics
+🛏️ Insight 3: Bedroom count matters — but only up to a point
 
-Computed high-level indicators:
+After 4–5 bedrooms, marginal price increase flattens.
 
-Median home price
+💰 Insight 4: Price per square foot varies heavily
 
-Average home price
+Some high-priced homes have lower PPSF, suggesting:
 
-Price standard deviation
+larger lot size
 
-Price per square foot distribution
+older construction
 
-Count of homes above key thresholds
+outdated interiors
 
-These statistics help reveal central tendency and market spread.
+rural vs. urban location differences
 
-6. GroupBy Analysis
+🏷️ Insight 5: Luxury features → higher valuation
 
-Used pandas groupby() to identify categorical trends:
+Homes with renovated kitchens, modern finishes, or premium architecture tend to cluster at the high-end of the distribution.
 
-Average price by number of bedrooms
+🧮 4. Summary Statistics
 
-Median price by number of bedrooms
+Examples of statistics computed:
 
-Median price by furnishing status
+Mean, median, and distribution of home prices
 
-Average price in preferred vs. non-preferred areas
+Minimum and maximum values
 
-Average price in main road vs non main road areas
+Correlations between features
 
-Groupbys provide insight into the relationship between home characteristics and price.
+Group-by statistics by neighborhood or property type
 
-7. Visualization
+These stats form the foundation for the visual exploration and insights above.
 
-Generated a histogram to show the distribution of Price per Square Foot:
+🚀 5. Future Improvements (Planned Enhancements)
 
-df["Price per Square Foot"].hist(bins=50)
+To expand the project into a full ML-ready pipeline:
 
-This helps visualize how housing value varies across the dataset.
+🔧 Add Modeling
 
-(Optional bar charts can be added for groupby results.)
+Linear Regression
 
-📈 Key Insights
+Random Forest or XGBoost
 
-Every home in the dataset is over $1M, with a median of ~$4.3M.
+Cross-validation
 
-Several 3-bedroom homes exceed $10M, showing significant variance.
+Performance metrics (MAE, RMSE, R²)
 
-Furnished homes tend to cluster in higher price ranges.
+📍 Add Geospatial Analysis
 
-Preferred areas generally command higher average prices.
+Use city/zip code location data to analyze neighborhood-level trends.
 
-Price per square foot varies widely, revealing differences in property quality and location.
+📈 Add a Dashboard
 
-🧪 How to Run
+Build a Streamlit or Plotly dashboard allowing real-time exploration:
 
-Install dependencies:
+Filter by price
 
-pip install pandas matplotlib
+Compare neighborhoods
 
-Run the script:
+View feature distributions
 
-python housing_analysis_file.py
+📝 Enhance Documentation
 
-📁 Project Structure
+Include:
 
-nj-housing-analysis/
+More visualizations
 
-│
-├── Housing.csv                 # Raw dataset
+Screenshots of charts
 
-├── cleaned_Housing.csv         # Cleaned dataset
+A full “Insights Summary” section
 
-├── housing_analysis_file.py    # Main analysis script
+🛠️ Tech Stack
 
-└── README.md                   # Documentation
+Python 3.10+
+
+pandas
+
+numpy
+
+matplotlib / seaborn
+
+▶️ How to Run the Project
+
+Clone the repository
+
+git clone https://github.com/ciskander2/Housing-Prices-Analysis-in-Pandas.git
+
+Install dependencies
+
+pip install -r requirements.txt
+
+Open the notebook
+
+jupyter notebook Housing_Prices_Analysis.ipynb
+
+Run all cells to reproduce the full analysis.
+
+🧑‍💻 Author
+
+Christopher Iskander
+NYU Engineering Student | Incoming Data Engineering Intern @ Moody's Corporation | Previously @ Thornton Tomasetti (Applied Science -- Software & Data Science)
+Focused on data analytics, fintech, and real-world decision modeling.
