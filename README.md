@@ -62,7 +62,7 @@ Group-by aggregations
 
 Price per square foot comparisons
 
-💡 3. Key Insights
+3. Key Insights 💡 
 
 📈 Insight 1: Size is the strongest driver of price
 
@@ -92,7 +92,7 @@ rural vs. urban location differences
 
 Homes with renovated kitchens, modern finishes, or premium architecture tend to cluster at the high-end of the distribution.
 
-🧮 4. Summary Statistics
+4. Summary Statistics 🧮 
 
 Examples of statistics computed:
 
@@ -106,33 +106,21 @@ Group-by statistics by neighborhood or property type
 
 These stats form the foundation for the visual exploration and insights above.
 
-🚀 5. Future Improvements (Planned Enhancements)
+5. Future Predictions and Machine Learning Tools 🤖
 
-To expand the project into a full ML-ready pipeline:
+Trained a skikit-learn model to predict the price of the next 10 homes
 
-🔧 Add Modeling
+Calculated the Mean Absolute Error and Root Mean Squared Errror using scikit-learn and Numpy
 
-Linear Regression
-
-Random Forest or XGBoost
-
-Cross-validation
-
-Performance metrics (MAE, RMSE, R²)
+6. Future Improvements (Planned Enhancements) 🚀
 
 📍 Add Geospatial Analysis
 
 Use city/zip code location data to analyze neighborhood-level trends.
 
-📈 Add a Dashboard
+📈 Add Data Engineering features
 
-Build a Streamlit or Plotly dashboard allowing real-time exploration:
-
-Filter by price
-
-Compare neighborhoods
-
-View feature distributions
+File i/o with PySpark instead of pandas, try to filter with data using SQL instead of pandas, using Airflow, etc. 
 
 📝 Enhance Documentation
 
@@ -144,7 +132,7 @@ Screenshots of charts
 
 A full “Insights Summary” section
 
-🛠️ Tech Stack
+7. Tech Stack 🛠️
 
 Python 3.10+
 
@@ -154,7 +142,9 @@ numpy
 
 matplotlib / seaborn
 
-▶️ How to Run the Project
+scikit-learn
+
+8. How to Run the Project ▶️
 
 Clone the repository
 
@@ -170,10 +160,39 @@ jupyter notebook Housing_Prices_Analysis.ipynb
 
 Run all cells to reproduce the full analysis.
 
-🧑‍💻 Author
+9. Project Archtecture and Diagram 🏗️
+    
+       ┌─────────────┐
+       │  Raw CSV     │
+       └──────┬──────┘
+              │
+       ┌──────▼──────┐
+       │ Cleaning     │
+       └──────┬──────┘
+              │
+       ┌──────▼────────────┐
+       │ Feature Engineering│
+       └──────┬────────────┘
+              │
+       ┌──────▼──────┐
+       │ EDA + Plots │
+       └──────┬──────┘
+              │
+       ┌──────▼────────┐
+       │ ML Model       │
+       └──────┬────────┘
+              │
+       ┌──────▼──────────────┐
+       │ Predictions + Export │
+       └──────────────────────┘
+
+
+10. 🧑‍💻 Author and Contact Information
 
 Christopher Iskander
 
 NYU Engineering Student | Incoming Data Engineering Intern @ Moody's Corporation | Previously @ Thornton Tomasetti (Applied Science -- Software & Data Science)
+
+📞 + 1 973-524-9266 | 📧 cmi8536@nyu.edu | 🔗 LinkedIn: christopher-iskander
 
 Focused on data analytics, fintech, and real-world decision modeling.
