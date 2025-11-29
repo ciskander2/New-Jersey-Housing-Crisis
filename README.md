@@ -11,13 +11,9 @@ Using pandas, NumPy, and matplotlib, it walks through a full end-to-end explorat
 📂 Project Structure
 
 ├── data/
-
 │   ├── raw_data.csv
-
 │   ├── cleaned_data.csv
-
 ├── Housing_Prices_Analysis.ipynb
-
 └── README.md
 
 🧼 1. Data Cleaning
