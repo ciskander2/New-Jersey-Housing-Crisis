@@ -9,7 +9,7 @@ The goal is to identify the strongest drivers of home prices, uncover hidden pat
 This project analyzes a dataset of residential properties to understand the key factors that influence home prices.
 
 Using pandas, NumPy, and matplotlib, it walks through a full end-to-end exploratory workflow:
-'''
+```
 📂 Project Structure
 
 ├── data/
@@ -17,7 +17,7 @@ Using pandas, NumPy, and matplotlib, it walks through a full end-to-end explorat
 │   ├── cleaned_data.csv
 ├── Housing_Prices_Analysis.py
 └── README.md
-'''
+```
 1. Data Cleaning 🧼
 
 Steps included:
