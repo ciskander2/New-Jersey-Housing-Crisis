@@ -1,5 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+import numpy as np
 # 1. Read the csv
 df = pd.read_csv('Housing.csv')
 # 2. Basic Information:
@@ -29,9 +33,9 @@ median_price_per_furnishing_status = df.groupby("furnishingstatus")["price"].med
 main_road_average = df.groupby("mainroad")["price"].mean()
 average_price_per_square_foot_by_preferred_area = df.groupby("prefarea")["price"].mean()
 # 7. Printing our answers and revealing insights from the data:
-print(f"\nNumber of ten million dollar 3BR homes: {three_BR_homes_and_above_10M.shape[0]}")
-print(f"\nNumber of Three Bedroom Homes, Furnished, and above 10M Dollars: {three_BR_homes_and_furnished_and_above_10M.shape[0]}")
-print(f"\nNumber of homes above 3000 Square Feet: {homes_above_3000_sqft.shape[0]}")
+print(f"\nNumber of ten million dollar 3BR homes: {three_BR_homes_and_above_10M.sum()}")
+print(f"\nNumber of Three Bedroom Homes, Furnished, and above 10M Dollars: {three_BR_homes_and_furnished_and_above_10M.sum()}")
+print(f"\nNumber of homes above 3000 Square Feet: {homes_above_3000_sqft.sum()}")
 print("\nPrice per square foot (first 10 homes):")
 print(price_per_square_foot.head(10).round(2).to_string(index=False))
 print(f"Median Home Price: ${median_home:,.2f}")
@@ -48,14 +52,14 @@ print(average_price_per_square_foot_by_preferred_area.round(2).to_string())
 print("\nHomes on main roads vs non main roads:")
 print(main_road_average.round(2).to_string())
 
-# New header:
+# 8. New header:
 print("\nTen Million Dollar Plus Home and 3 Bedrooms:")
 print(three_BR_homes_and_above_10M.head())
 
-# Saving the file:
+# 9. Saving the file:
 df.to_csv('cleaned_Housing.csv', index=False)
 
-## Plotting the results
+# 10. Plotting the results
 plt.figure()
 df["Price per Square Foot"].hist(bins=50)
 plt.title("Distribution of Price per Square Foot for Building: ")
@@ -69,5 +73,35 @@ plt.xlabel("Bedrooms")
 plt.ylabel("Average Price ($)")
 plt.tight_layout()
 plt.show()
+
+# 11. Machine Learning and Linear Regression Portion
+machine_learning_df = df.copy()
+yes_or_no_columns = ["mainroad", "guestroom", "basement",
+                     "hotwaterheating", "airconditioning",
+                     "prefarea"]
+quantitative_columns = ["area", "bedrooms", "bathrooms", "stories", "parking"]
+for column in yes_or_no_columns:
+    machine_learning_df[column] = machine_learning_df[column].astype(str).str.strip().str.lower().map({"yes": 1, "no": 0})
+machine_learning_df = pd.get_dummies(machine_learning_df, columns = ["furnishingstatus"], drop_first = True)
+furnishing_columns = [c for c in machine_learning_df.columns if c.startswith("furnishingstatus_")]
+total_columns = yes_or_no_columns + quantitative_columns + furnishing_columns
+
+x = machine_learning_df[total_columns]
+y = machine_learning_df["price"]
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+model = LinearRegression()
+model.fit(x_train, y_train)
+y_pred = model.predict(x_test)
+MAE = mean_absolute_error(y_test, y_pred)
+RSME = np.sqrt(mean_squared_error(y_test, y_pred))
+print("\n<Mean Absolute Error & Root Mean Squared Error:")
+print(f"Mean Absolute Error: {MAE}")
+print(f"Root Mean Squared Error: {RSME}")
+next_10_homes = machine_learning_df[total_columns].tail(10)
+next_10_homes_prediction = model.predict(next_10_homes)
+print("\nPredicting Prices for the next 10 Homes:")
+for i, price in enumerate(next_10_homes_prediction, start=1):
+    print(f"Home {i}: ${price:,.2f}")
+
 
 
