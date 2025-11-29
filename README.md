@@ -11,7 +11,6 @@ This project analyzes a dataset of residential properties to understand the key 
 Using pandas, NumPy, and matplotlib, it walks through a full end-to-end exploratory workflow:
 
 📂 Project Structure
-
 ├── data/
 │   ├── raw_data.csv
 │   ├── cleaned_data.csv
