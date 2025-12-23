@@ -1,52 +1,5 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_absolute_error, mean_squared_error
-import numpy as np
-import matplotlib.ticker as ticker
 
-# 1. Read the csv in pandas:
-df = pd.read_csv('Housing.csv')
-
-# 2. Basic Information:
-print(f"Shape (rows, columns) {df.shape}")
-print("\nColumn info:")
-print(df.info())
-print("\nMissing values per column:")
-print(df.isna().sum())
-print("\nFirst 5 Rows:")
-print(df.head())
-
-# 3. Data Cleaning for the File:
-df = df.dropna()
-
-# 4. Filtering the Data for what we need:
-three_BR_homes_and_above_10M = df[(df["bedrooms"] == 3) & (df["price"] > 10000000)]
-three_BR_homes_and_furnished_and_above_10M = df[(df["bedrooms"] == 3) & (df["furnishingstatus"] == "furnished") & (df["price"] > 10000000)]
-homes_above_3000_sqft = df["area"] > 3000
-df["Price per Square Foot"] = df["price"] / df["area"]
-price_per_square_foot = df["Price per Square Foot"]
-
-# 5. Statistics for the Homes
-standard_deviation_between_homes = df["price"].std()
-median_home = df["price"].median()
-average_home = df["price"].mean()
-
-# 6. Group by for Statistics
-average_price_per_bedroom = df.groupby("bedrooms")["price"].mean()
-median_price_per_bedroom = df.groupby("bedrooms")["price"].median()
-median_price_per_furnishing_status = df.groupby("furnishingstatus")["price"].median()
-main_road_average = df.groupby("mainroad")["price"].mean()
-average_price_per_square_foot_by_preferred_area = df.groupby("prefarea")["price"].mean()
-
-# 7. Printing our Answers and Revealing Insights from the Data:
-print(f"\nNumber of ten million dollar 3BR homes: {three_BR_homes_and_above_10M.shape[0]}")
-print(f"\nNumber of Three Bedroom Homes, Furnished, and above 10M Dollars: {three_BR_homes_and_furnished_and_above_10M.shape[0]}")
-print(f"\nNumber of homes above 3000 Square Feet: {homes_above_3000_sqft.shape[0]}")
-print("\nPrice per square foot (first 10 homes):")
-print(price_per_square_foot.head(10).round(2).to_string(index=False))
-print(f"Median Home Price: ${median_home:,.2f}")
+# 4. Fil
 print(f"Average Home Price: ${average_home:,.2f}")
 print(f"Standard Deviation between home price: ${standard_deviation_between_homes:,.2f}")
 print("\nAverage price per bedroom:")
@@ -121,6 +74,7 @@ plt.gca().xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f"${x:,.0f
 plt.gca().yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: f"${y:,.0f}"))
 plt.tight_layout()
 plt.show()
+
 
 
 
